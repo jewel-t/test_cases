@@ -11,6 +11,7 @@ def traverse_org_hierarchy(employee_code, direct_reports):
     # Get the contact information for the employee
     employee = gal.AddressEntries.GetFirst()
     while employee:
+        print(f"Checking employee {employee.Name} with type {employee.Type}")
         if employee.Type == "EX":
             exchange_user = employee.GetExchangeUser()
             if exchange_user is not None:
@@ -20,9 +21,12 @@ def traverse_org_hierarchy(employee_code, direct_reports):
                     if manager_user is not None and manager_user.EmployeeID == employee_code:
                         # Add the employee to the direct reports list
                         direct_reports.append(employee)
+                        print(f"Found direct report {employee.Name}")
                         # Recursively traverse the direct reports of the employee
                         traverse_org_hierarchy(exchange_user.EmployeeID, direct_reports)
         employee = gal.AddressEntries.GetNext()
+        if employee is None:
+            break
 
 # Get all the direct reports till the leaf layer for a particular employee code
 employee_code = "12345" # Replace with the employee code you want to query
