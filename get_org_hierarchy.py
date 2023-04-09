@@ -8,6 +8,7 @@ gal = outlook.Session.GetGlobalAddressList()
 
 # Define a recursive function to traverse the organization hierarchy
 def traverse_org_hierarchy(employee_code, direct_reports):
+    print(f"Searching for employee with code {employee_code}")
     # Get the contact information for the employee
     employee = gal.AddressEntries.GetFirst()
     while employee:
@@ -37,3 +38,6 @@ traverse_org_hierarchy(employee_code, direct_reports)
 for report in direct_reports:
     print(report.Name)
     print(report.Address)
+    
+# Print the number of direct reports found
+print(f"Total direct reports found: {len(direct_reports)}")
