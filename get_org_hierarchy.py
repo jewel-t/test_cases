@@ -18,6 +18,8 @@ def find_subordinates(employee_email):
             for subordinate in subordinates:
                 if subordinate.PrimarySmtpAddress not in visited:  # Only visit new employees
                     find_subordinates(subordinate.PrimarySmtpAddress)
+    except AttributeError:
+        print(f"AttributeError: Email address {employee_email} is not associated with an Exchange user.")
     except Exception as e:
         print(f"Error finding subordinates for employee {employee_email}: {e}")
 
